@@ -16,10 +16,10 @@ export function sortStrings(arr, param = 'asc') {
 }
 
 function comperer(a, b) {
-    let result = a.localeCompare(b, undefined, { sensitivity: 'base' });
+    let result = a.localeCompare(b, ['ru', 'en'], { sensitivity: 'base' });
 
     if (result == 0) {
-        result = -1 * a.localeCompare(b, undefined, { sensitivity: 'case' });
+        result = -1 * a.localeCompare(b, ['ru', 'en'], { sensitivity: 'case' });
     }
 
     return result;
