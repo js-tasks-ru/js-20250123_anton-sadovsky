@@ -49,13 +49,9 @@ export default class NotificationMessage {
         return wrapper.firstElementChild;
     }
 
-    get getSeconds() {
-        return this.duration ? this.duration / 1000 : 0
-    }
-
     get createTemplate() {
         return `
-        <div class="notification ${this.type}" style="--value:${this.getSeconds}s">
+        <div class="notification ${this.type}" style="--value:${this.duration / 1000}s">
             <div class="timer"></div>
             <div class="inner-wrapper">
             <div class="notification-header">${this.type}</div>
