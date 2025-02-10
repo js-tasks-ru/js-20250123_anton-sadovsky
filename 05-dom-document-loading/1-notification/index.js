@@ -1,6 +1,6 @@
 export default class NotificationMessage {
     element;
-    static isShown = false;
+    static lastShownComponent;
     
     constructor(message, {
         duration = 0,
@@ -22,10 +22,11 @@ export default class NotificationMessage {
     }
 
     show(element) {
-        if (NotificationMessage.isShown) return;
-
-        NotificationMessage.isShown = true;
-
+        if (NotificationMessage.lastShownComponent) {
+            NotificationMessage.lastShownComponent.remove();
+        }
+        
+        NotificationMessage.lastShownComponent = this;
         if (element) {
             element.appendChild(this.element);
         }
@@ -37,7 +38,6 @@ export default class NotificationMessage {
 
         setTimeout(_ => {
             this.remove();
-            NotificationMessage.isShown = false;
         }, this.duration);
     }
 
