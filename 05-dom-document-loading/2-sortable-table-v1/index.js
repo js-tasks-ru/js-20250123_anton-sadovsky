@@ -38,7 +38,7 @@ export default class SortableTable {
       else {
         return m * (a[field] - b[field]);
       }
-    })
+    });
 
     this.subElements.body.innerHTML = this.createBodyTemplate();
     this.element.querySelector('[data-element="body"]').replaceWith(this.subElements.body);
@@ -81,14 +81,14 @@ export default class SortableTable {
         <div class="sortable-table__cell" data-id="${hc.id}" data-sortable="${hc.sortable}">
           <span>${hc.title}</span>
         </div>
-      `
+      `;
     }).join('');
   }
 
   createBodyTemplate() {
     let html = this.headerConfig.map(hc => {
 
-    })
+    });
 
 
     return this.data.map(d => {
@@ -99,11 +99,11 @@ export default class SortableTable {
               return hc.template([d]);
             }
             else {
-              return `<div class="sortable-table__cell">${d[hc.id]}</div>`
+              return `<div class="sortable-table__cell">${d[hc.id]}</div>`;
             }
           }).join('')}
         </a>
-      `
+      `;
     }).join('');
   }
 }

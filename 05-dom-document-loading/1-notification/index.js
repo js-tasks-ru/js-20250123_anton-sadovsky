@@ -3,55 +3,55 @@ export default class NotificationMessage {
     static lastShownComponent;
     
     constructor(message, {
-        duration = 0,
-        type = ''
+      duration = 0,
+      type = ''
     } = {}) {
-        this.message = message;
+      this.message = message;
         
-        this.duration = duration;
-        this.type = type;
-        this.element = this.createElement();
+      this.duration = duration;
+      this.type = type;
+      this.element = this.createElement();
     }
 
     remove() {
-        this.element.remove();
+      this.element.remove();
     }
 
     destroy() {
-        clearTimeout(this.timerId);
-        this.remove();
+      clearTimeout(this.timerId);
+      this.remove();
     }
 
     show(element) {
-        if (NotificationMessage.lastShownComponent) {
-            NotificationMessage.lastShownComponent.remove();
-        }
+      if (NotificationMessage.lastShownComponent) {
+        NotificationMessage.lastShownComponent.remove();
+      }
         
-        NotificationMessage.lastShownComponent = this;
-        if (element) {
-            element.appendChild(this.element);
-        }
-        else {
-            const body = document.querySelector('body');
-            body.appendChild(this.element);
-        }
+      NotificationMessage.lastShownComponent = this;
+      if (element) {
+        element.appendChild(this.element);
+      }
+      else {
+        const body = document.querySelector('body');
+        body.appendChild(this.element);
+      }
 
 
-        this.timerId = setTimeout(_ => {
-            this.remove();
-        }, this.duration);
+      this.timerId = setTimeout(_ => {
+        this.remove();
+      }, this.duration);
     }
 
     createElement() {
-        const wrapper = document.createElement('div');
-        wrapper.innerHTML = this.createTemplate;
-        console.log(this.createTemplate);
+      const wrapper = document.createElement('div');
+      wrapper.innerHTML = this.createTemplate;
+      console.log(this.createTemplate);
 
-        return wrapper.firstElementChild;
+      return wrapper.firstElementChild;
     }
 
     get createTemplate() {
-        return `
+      return `
         <div class="notification ${this.type}" style="--value:${this.duration / 1000}s">
             <div class="timer"></div>
             <div class="inner-wrapper">
@@ -60,6 +60,6 @@ export default class NotificationMessage {
                 ${this.message}
             </div>
             </div>
-        </div>`
+        </div>`;
     }
 }
