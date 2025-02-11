@@ -86,23 +86,22 @@ export default class SortableTable {
   }
 
   createBodyTemplate() {
+    let html = this.headerConfig.map(hc => {
+
+    })
+
+
     return this.data.map(d => {
       return `
         <a href="/products/3d-ochki-epson-elpgs03" class="sortable-table__row">
-          
-          ${
-            d.images?.[0].url ?
-            `
-            <div class="sortable-table__cell">
-              <img class="sortable-table-image" alt="Image" src="${d.images?.[0].url}">
-            </div>` : 
-            ``
-          }
-          
-          ${ d.title ? `<div class="sortable-table__cell">${d.title}</div>` : `` }
-          ${ d.quantity ? `<div class="sortable-table__cell">${d.quantity}</div>` : `` }
-          ${ d.price ? `<div class="sortable-table__cell">${d.price}</div>` : `` }
-          ${ d.sales ? `<div class="sortable-table__cell">${d.sales}</div>` : `` }
+          ${this.headerConfig.map(hc => {
+            if (hc.template) {
+              return hc.template([d]);
+            }
+            else {
+              return `<div class="sortable-table__cell">${d[hc.id]}</div>`
+            }
+          }).join('')}
         </a>
       `
     }).join('');
