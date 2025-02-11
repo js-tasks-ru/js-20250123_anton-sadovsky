@@ -86,11 +86,6 @@ export default class SortableTable {
   }
 
   createBodyTemplate() {
-    let html = this.headerConfig.map(hc => {
-
-    });
-
-
     return this.data.map(d => {
       return `
         <a href="/products/3d-ochki-epson-elpgs03" class="sortable-table__row">
