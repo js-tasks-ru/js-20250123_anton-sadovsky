@@ -41,7 +41,6 @@ export default class SortableTable {
     });
 
     this.subElements.body.innerHTML = this.createBodyTemplate();
-    this.element.querySelector('[data-element="body"]').replaceWith(this.subElements.body);
   }
 
   destroy() {
