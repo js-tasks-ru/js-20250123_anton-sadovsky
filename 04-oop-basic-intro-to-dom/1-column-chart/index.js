@@ -1,6 +1,7 @@
 export default class ColumnChart {
     element;
     chartHeight = 50;
+    subElements = {};
 
     constructor({
       data = [],
@@ -14,9 +15,9 @@ export default class ColumnChart {
       this.data = data;
       this.value = value;
       this.formatHeading = formatHeading;
-
-
-      this.element = this.createTemplate();
+      
+      this.createElement();
+      this.createSubElements();
     }
 
     getColumnProps() {
@@ -31,10 +32,18 @@ export default class ColumnChart {
       });
     }
 
+    createSubElements() {
+      this.element.querySelectorAll('[data-element]').forEach(element => {
+        this.subElements[element.dataset.element] = element;
+      });
+    }
+
     update(newData) {
       this.data = newData;
-      const bodyElement = document.querySelector('[data-element="body"]');
-      bodyElement.innerHTML = this.createChartItemsTemplate();
+      this.value = newData.reduce((a, b) => a + b, 0);
+      this.subElements.body.innerHTML = this.createChartItemsTemplate();
+      this.subElements.header.textContent = this.formatHeading(this.value);
+      this.updateLoading();
     }
 
     remove() {
@@ -55,13 +64,20 @@ export default class ColumnChart {
                 .join('');
     }
 
-    columnChartLoadingStyles() {
-      return this.data.length ? '' : 'column-chart_loading';
+    updateLoading() {
+      const loading = 'column-chart_loading';
+
+      if (this.data.length == 0) {
+        this.element.classList.add(loading);
+      }
+      else {
+        this.element.classList.remove(loading);
+      }
     }
 
     createTemplate() {
-      const template = `
-        <div class="column-chart ${this.columnChartLoadingStyles()}" style="--chart-height: 50">
+      return `
+        <div class="column-chart" style="--chart-height: 50">
             <div class="column-chart__title">
                 ${this.label}
                 ${this.createChartLinkTemplate()}
@@ -74,8 +90,14 @@ export default class ColumnChart {
             </div>
         </div>
         `;
+    }
+
+    createElement() {
       const newElement = document.createElement('div');
-      newElement.innerHTML = template;
-      return newElement.firstElementChild;
+      newElement.innerHTML = this.createTemplate();
+      
+      this.element = newElement.firstElementChild;
+
+      this.updateLoading();
     }
 }
