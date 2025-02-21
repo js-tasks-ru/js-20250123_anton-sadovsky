@@ -74,6 +74,6 @@ export default class Tooltip {
   }
 
   createTemplate(text) {
-    return `<div class="tooltip">${text}</div>`
+    return `<div class="tooltip">${text}</div>`;
   }
 }
