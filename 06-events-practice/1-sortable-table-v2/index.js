@@ -1,4 +1,4 @@
-import SortableTableV1 from '../../05-dom-document-loading/2-sortable-table-v1/index.js'
+import SortableTableV1 from '../../05-dom-document-loading/2-sortable-table-v1/index.js';
 
 
 export default class SortableTable extends SortableTableV1 {
@@ -42,7 +42,7 @@ export default class SortableTable extends SortableTableV1 {
     const cellElement = e.target.closest('.sortable-table__cell');
 
     if (!cellElement) {
-     return;
+      return;
     }
     
     const sortable = cellElement.getAttribute('data-sortable');
@@ -55,7 +55,7 @@ export default class SortableTable extends SortableTableV1 {
     let sortOrder = cellElement.dataset.order;
   
     if (sortOrder) {
-      sortOrder = sortOrder === 'asc' ? 'desc' : 'asc'
+      sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
     }
     else {
       cellElement.setAttribute('data-order', 'desc');
@@ -100,6 +100,6 @@ export default class SortableTable extends SortableTableV1 {
       <span data-element="arrow" class="sortable-table__sort-arrow">
         <span class="sort-arrow"></span>
       </span>
-    `
+    `;
   }
 }
